@@ -26,9 +26,15 @@ export default function AuthMock() {
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center bg-bg">
-      <motion.div initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-surface p-8 rounded-lg shadow text-center">
+      <motion.div
+        initial={{ scale: 0.96, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="bg-surface p-8 rounded-lg shadow text-center"
+      >
         <h2 className="text-xl font-semibold text-primary mb-2">{title}</h2>
-        <p className="text-muted mb-4">We are connecting your account. This is a safe mock flow for testing.</p>
+        <p className="text-muted mb-4">
+          We are connecting your account. This is a safe mock flow for testing.
+        </p>
 
         <div className="flex items-center justify-center gap-3">
           <div className={`w-3 h-3 rounded-full ${step > 0 ? 'bg-primary' : 'bg-muted'}`}></div>

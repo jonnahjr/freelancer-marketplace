@@ -32,13 +32,19 @@ export default function Footer() {
           <h4 className="font-semibold">Stay up to date</h4>
           <p className="mt-2">Subscribe to receive product updates and news.</p>
           <div className="mt-3 flex gap-2">
-            <input aria-label="email" className="flex-1 px-3 py-2 border rounded bg-surface" placeholder="you@domain.com" />
+            <input
+              aria-label="email"
+              className="flex-1 px-3 py-2 border rounded bg-surface"
+              placeholder="you@domain.com"
+            />
             <button className="px-4 py-2 btn-primary">Subscribe</button>
           </div>
         </div>
       </div>
       <div className="border-t">
-        <div className="container mx-auto px-6 py-4 text-sm">© {new Date().getFullYear()} Freelancer Marketplace</div>
+        <div className="container mx-auto px-6 py-4 text-sm">
+          © {new Date().getFullYear()} Freelancer Marketplace
+        </div>
       </div>
     </footer>
   );

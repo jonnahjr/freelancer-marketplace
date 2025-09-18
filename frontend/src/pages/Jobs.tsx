@@ -2,7 +2,11 @@ import React from 'react';
 import JobCard from '../components/JobCard';
 import { motion } from 'framer-motion';
 
-const dummy = Array.from({ length: 8 }).map((_, i) => ({ id: String(i), title: `Job ${i + 1}`, description: 'Short description' }));
+const dummy = Array.from({ length: 8 }).map((_, i) => ({
+  id: String(i),
+  title: `Job ${i + 1}`,
+  description: 'Short description',
+}));
 
 export default function Jobs() {
   return (

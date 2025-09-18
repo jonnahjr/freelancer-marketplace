@@ -18,9 +18,12 @@ export default function AuthCallback() {
       // fetch user info from backend /auth/me
       (async () => {
         try {
-          const res = await fetch(`${(window as any).__BACKEND_URL__ || 'http://localhost:3000'}/auth/me`, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
+          const res = await fetch(
+            `${(window as any).__BACKEND_URL__ || 'http://localhost:3000'}/auth/me`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            },
+          );
           const data = await res.json();
           if (data.user) {
             localStorage.setItem('user', JSON.stringify(data.user));
