@@ -16,23 +16,24 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-surface shadow">
-      <div className="container mx-auto p-4 flex justify-between items-center">
+    <motion.nav initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-surface shadow-sm">
+      <div className="max-w-6xl mx-auto p-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-3">
-          <img src="/icons/logo.svg" alt="Freelancer Market logo" className="w-28 h-9 object-contain" />
+          <img src="/icons/logo.svg" alt="Freelancer Market logo" className="h-8 object-contain" />
+          <span className="font-semibold text-lg text-primary hidden sm:inline">FreelancerMarket</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-6 text-sm">
           <Link to="/jobs" className="text-muted hover:text-primary">Jobs</Link>
           <Link to="/post-job" className="text-muted hover:text-primary">Post Job</Link>
           <Link to="/messages" className="text-muted hover:text-primary">Messages</Link>
           {user ? (
             <>
               <Link to="/profile/me" className="text-muted">{user.name || user.email}</Link>
-              <button onClick={() => { localStorage.removeItem('accessToken'); localStorage.removeItem('user'); setUser(null); window.location.href = '/'; }} className="btn-primary">Logout</button>
+              <button onClick={() => { localStorage.removeItem('accessToken'); localStorage.removeItem('user'); setUser(null); window.location.href = '/'; }} className="ml-3 inline-flex items-center px-3 py-1 rounded bg-red-600 text-white text-sm hover:bg-red-500">Logout</button>
             </>
           ) : (
-            <Link to="/login" className="btn-primary">Sign in</Link>
+            <Link to="/login" className="inline-flex items-center px-3 py-1 rounded bg-primary text-white text-sm hover:opacity-90">Sign in</Link>
           )}
           <button
             aria-label="toggle theme"

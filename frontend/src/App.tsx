@@ -16,9 +16,9 @@ import BottomNav from './components/BottomNav';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <Navbar />
-      <main className="flex-1 container mx-auto p-4">
+      <main className="flex-1 max-w-6xl mx-auto p-6 w-full">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -32,8 +32,8 @@ export default function App() {
           <Route path="/messages" element={<Messages />} />
         </Routes>
       </main>
-  <Footer />
-  <BottomNav />
+      <Footer />
+      <BottomNav />
     </div>
   );
 }
