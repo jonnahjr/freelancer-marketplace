@@ -26,10 +26,9 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "husky": "^8.0.0",
-    "lint-staged": "^14.0.0",
+    "lint-staged": "^16.1.6",
     "typescript": "5.3.3"
-  }
-  ,
+  },
   "overrides": {
     "typescript": "5.3.3"
   }
