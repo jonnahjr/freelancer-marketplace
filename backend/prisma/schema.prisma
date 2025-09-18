@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?  @unique
+  password  String?
+  role      String   @default("CLIENT")
+  profile   Profile?
+  clientProjects Project[] @relation("ClientProjects")
+  proposals Proposal[] @relation("FreelancerProposals")
+  clientContracts Contract[] @relation("ClientContracts")
+  freelancerContracts Contract[] @relation("FreelancerContracts")
+  sentMessages Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @unique
+  displayName String?
+  bio        String?
+  skills     String?  @default("[]")
+  portfolio  String?
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  client      User     @relation("ClientProjects", fields: [clientId], references: [id])
+  clientId    String
+  budget      Float?
+  status      String   @default("OPEN")
+  createdAt   DateTime @default(now())
+  proposals   Proposal[] @relation("ProjectProposals")
+  contracts   Contract[] @relation("ProjectContracts")
+}
+
+model Proposal {
+  id         String   @id @default(cuid())
+  project    Project  @relation("ProjectProposals", fields: [projectId], references: [id])
+  projectId  String
+  freelancer User     @relation("FreelancerProposals", fields: [freelancerId], references: [id])
+  freelancerId String
+  coverLetter String?
+  amount     Float?
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+}
+
+model Contract {
+  id         String   @id @default(cuid())
+  project    Project  @relation("ProjectContracts", fields: [projectId], references: [id])
+  projectId  String
+  client     User     @relation("ClientContracts", fields: [clientId], references: [id])
+  clientId   String
+  freelancer User     @relation("FreelancerContracts", fields: [freelancerId], references: [id])
+  freelancerId String
+  amount     Float
+  escrow     Float  @default(0)
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+  payments   Payment[] @relation("ContractPayments")
+}
+
+model Payment {
+  id         String   @id @default(cuid())
+  contract   Contract @relation("ContractPayments", fields: [contractId], references: [id])
+  contractId String
+  provider   String
+  providerRef String?
+  amount     Float
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  sender    User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderId  String
+  receiver  User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  receiverId String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+// Enums removed for SQLite compatibility; use string fields for statuses and roles in SQLite dev.

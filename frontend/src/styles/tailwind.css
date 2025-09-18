@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--color-primary:  #0ea5e9; /* sky-500 */
+	--color-accent:   #7c3aed; /* violet-600 */
+	--color-bg:       #f8fafc67; /* gray-50 */
+	--color-surface:  #ffffff34; /* white */
+	--color-muted:    #6b7280; /* gray-500 */
+	color-scheme: light;
+}
+
+html.dark {
+	--color-primary:  #06b6d4; /* teal-400 */
+	--color-accent:   #8b5cf6; /* violet-500 */
+	--color-bg:       #0f172a; /* slate-900 */
+	--color-surface:  #0b1220; /* slightly darker */
+	--color-muted:    #9ca3af; /* gray-400 */
+	color-scheme: dark;
+}
+
+@layer base {
+	html { transition: background-color 300ms ease, color 300ms ease; }
+	body { background-color: var(--color-bg); color: inherit; }
+	.bg-primary { background-color: var(--color-primary); }
+	.text-primary { color: var(--color-primary); }
+	.bg-surface { background-color: var(--color-surface); }
+	.text-muted { color: var(--color-muted); }
+}
+
+@layer components {
+	.theme-toggle {
+		@apply inline-flex items-center justify-center w-10 h-10 rounded-md border;
+		background-color: var(--color-surface);
+		color: var(--color-muted);
+	}
+
+	.btn-primary {
+		@apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-white;
+		background-color: var(--color-primary);
+	}
+
+	.btn-outline {
+		@apply inline-flex items-center justify-center px-4 py-2 rounded-lg border;
+		border-color: rgba(255,255,255,0.08);
+	}
+}
