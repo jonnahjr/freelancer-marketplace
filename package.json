@@ -3,18 +3,18 @@
   "private": true,
   "version": "0.1.0",
   "workspaces": [
-    "frontend",
-    "backend"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "install:all": "npm install --workspaces",
     "prepare": "husky install",
-    "build": "npm run -w frontend build && npm run -w backend build",
-    "lint": "npm run -w frontend lint && npm run -w backend lint",
-    "format": "npm run -w frontend format && npm run -w backend format",
+    "build": "npm run -w apps/frontend build && npm run -w apps/backend build",
+    "lint": "npm run -w apps/frontend lint && npm run -w apps/backend lint",
+    "format": "npm run -w apps/frontend format && npm run -w apps/backend format",
     "dev": "concurrently \"npm:dev:frontend\" \"npm:dev:backend\"",
-    "dev:frontend": "npm --workspace frontend run dev",
-    "dev:backend": "npm --workspace backend run start:dev"
+    "dev:frontend": "npm --workspace=apps/frontend run dev",
+    "dev:backend": "npm --workspace=apps/backend run start:dev"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,json,md}": [
