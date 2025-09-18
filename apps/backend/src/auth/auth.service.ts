@@ -14,14 +14,17 @@ export class AuthService {
       const crypto = await import('crypto');
       const hash = crypto.pbkdf2Sync(pass, user.salt, 10000, 64, 'sha512').toString('hex');
       if (hash === user.passwordHash) {
-        const { passwordHash, salt, ...result } = user;
+  // intentionally ignoring passwordHash and salt from the returned result
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { passwordHash: _passwordHash, salt: _salt, ...result } = user;
         return result;
       }
       return null;
     }
     // fallback for plain password field (legacy)
     if (user.password && user.password === pass) {
-      const { password, ...result } = user;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password: _password, ...result } = user;
       return result;
     }
     return null;
