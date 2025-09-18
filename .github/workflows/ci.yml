@@ -22,6 +22,31 @@ jobs:
         run: npm run lint
       - name: Build apps
         run: npm run build
+  smoke:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose-plugin
+      - name: Start stack
+        run: |
+          docker compose up -d --build
+      - name: Wait for backend
+        run: |
+          echo "Waiting for backend to accept connections..."
+          for i in {1..30}; do
+            if curl -sSf http://localhost:3000/api >/dev/null; then
+              echo "backend is up"; exit 0
+            fi
+            echo "retry $i..."; sleep 2
+          done
+          echo "backend did not become ready"; exit 1
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
 name: CI
 
 on:
