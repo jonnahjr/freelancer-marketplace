@@ -8,9 +8,9 @@ export default function AuthMock() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    let t1 = setTimeout(() => setStep(1), 600);
-    let t2 = setTimeout(() => setStep(2), 1400);
-    let t3 = setTimeout(() => {
+    const t1 = setTimeout(() => setStep(1), 600);
+    const t2 = setTimeout(() => setStep(2), 1400);
+    const t3 = setTimeout(() => {
       // after mock success, navigate to profile/me
       navigate('/profile/me');
     }, 2400);
