@@ -16,7 +16,10 @@ export default function useTheme() {
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
       document.documentElement.classList.toggle('dark', isDark);
       document.documentElement.style.transition = 'background-color 300ms, color 300ms';
-    } catch {}
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('useTheme: failed to persist theme or update document', err);
+    }
   }, [isDark]);
 
   return { isDark, setIsDark } as const;

@@ -29,7 +29,10 @@ export default function Signup() {
         );
         const meData = await me.json();
         if (meData.user) localStorage.setItem('user', JSON.stringify(meData.user));
-      } catch {}
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Signup: failed to fetch current user after signup', err);
+      }
       navigate('/profile/me');
     } else {
       alert(data.error || 'Signup failed');

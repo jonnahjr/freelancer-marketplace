@@ -12,7 +12,11 @@ export default function Navbar() {
     try {
       const u = localStorage.getItem('user');
       if (u) setUser(JSON.parse(u));
-    } catch {}
+    } catch (err) {
+      // If parsing fails, log and continue without user
+      // eslint-disable-next-line no-console
+      console.warn('Navbar: failed to read user from localStorage', err);
+    }
   }, []);
 
   return (

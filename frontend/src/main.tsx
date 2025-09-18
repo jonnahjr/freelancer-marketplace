@@ -4,10 +4,16 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './styles/tailwind.css';
 
-createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+const rootEl = document.getElementById('root');
+if (rootEl) {
+  createRoot(rootEl).render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>,
+  );
+} else {
+  // eslint-disable-next-line no-console
+  console.error('Root element not found: unable to mount React app');
+}
