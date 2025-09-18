@@ -1,5 +1,66 @@
 # Freelancer Marketplace
 
+This repository contains a full-stack freelancer marketplace example.
+
+Workspaces
+-- The repo uses npm workspaces: `frontend` and `backend`.
+
+Quickstart (Windows PowerShell)
+
+1. Install dependencies (root) — this will install workspace dependencies and initialize Husky hooks:
+
+```powershell
+cd C:\Users\PC\Desktop\freelancer-marketplace-1\freelancer-marketplace
+npm install
+```
+
+2. Run services with Docker Compose (Postgres + Redis):
+
+```powershell
+docker-compose up -d
+docker-compose logs -f postgres
+```
+
+3. Run the frontend and backend for development (from repo root):
+
+```powershell
+# Start both dev servers (requires `concurrently` installed via `npm install`)
+npm run dev
+
+# Or run individually:
+npm --workspace frontend run dev
+npm --workspace backend run start:dev
+```
+
+Linting & Formatting
+
+- Run workspace lint and format from root:
+
+```powershell
+npm run lint
+npm run format
+```
+
+Pre-commit hooks and lint-staged
+
+- Husky has been configured; `prepare` runs during `npm install` to set up hooks.
+- `lint-staged` is configured in the root `package.json` to run Prettier and ESLint on staged files.
+
+Notes & troubleshooting
+
+- The frontend ESLint setup may show a TypeScript parser warning if your local TypeScript version is newer than the supported range for the installed `@typescript-eslint` packages. ESLint will still run, but you may want to align `typescript` and `@typescript-eslint/*` versions across workspaces. See the repo todo list for this planned step.
+- If you see line ending warnings on commit, `.gitattributes` is present to normalize line endings to LF; you can run `git add --renormalize .` if needed.
+
+Next steps
+
+- Align TypeScript / `@typescript-eslint` versions across workspaces (not yet applied).
+- Add more CI checks and tests as needed.
+
+Repository layout guidance
+
+See `REPO_STRUCTURE.md` for a recommended professional repo layout (monorepo style) and safe migration steps if you want me to execute the reorganization.
+# Freelancer Marketplace
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/jonnahjr/freelancer-marketplace?label=repo%20size)](https://github.com/jonnahjr/freelancer-marketplace)
 

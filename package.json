@@ -1,0 +1,31 @@
+{
+  "name": "freelancer-marketplace",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "prepare": "husky install",
+    "build": "npm run -w frontend build && npm run -w backend build",
+    "lint": "npm run -w frontend lint && npm run -w backend lint",
+    "format": "npm run -w frontend format && npm run -w backend format",
+    "dev": "concurrently \"npm:dev:frontend\" \"npm:dev:backend\"",
+    "dev:frontend": "npm --workspace frontend run dev",
+    "dev:backend": "npm --workspace backend run start:dev"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,json,md}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.0"
+  }
+}
