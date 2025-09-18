@@ -1,4 +1,105 @@
+# Freelancer Marketplace
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Repo Size](https://img.shields.io/github/repo-size/jonnahjr/freelancer-marketplace?label=repo%20size)](https://github.com/jonnahjr/freelancer-marketplace)
+
+A full-stack Freelancer Marketplace monorepo (frontend + backend + infra). This repository includes:
+
+- Backend: NestJS + Prisma + Websockets (Socket.IO)
+- Frontend: React + Vite + Tailwind CSS
+- Dev infra: Docker Compose with Postgres and Redis
+
+This README gives you a one-command quick-start with Docker, local dev instructions, and tips to contribute.
+
+---
+
+## Quick start (recommended: Docker)
+
+Prerequisites: `docker` and `docker-compose` installed on your machine.
+
+From the repository root:
+
+```powershell
+# pull official images, build local images and start containers
+docker-compose pull; docker-compose build; docker-compose up -d
+
+# run Prisma migrations inside the backend container once Postgres is healthy
+# wait for postgres to initialize, then:
+docker-compose exec backend sh -c "npm run prisma:generate && npm run prisma:migrate"
+
+# follow logs (optional)
+docker-compose logs -f
+```
+
+After the stack is up:
+- Backend: http://localhost:3000 (Swagger at `/api`)
+- Frontend: http://localhost:5173
+
+---
+
+## Local development (without Docker)
+
+Requirements: Node 18+, npm
+
+Backend:
+
+```powershell
+cd backend
+npm install
+copy .env.example .env
+# edit .env and set DATABASE_URL to your Postgres instance
+npm run prisma:generate
+npm run prisma:migrate dev --name init
+npm run start:dev
+```
+
+Frontend:
+
+```powershell
+cd frontend
+npm install
+npm run dev -- --host 0.0.0.0
+```
+
+---
+
+## What I fixed and improvements added
+
+- Prisma `schema.prisma` datasource updated to `provider = "postgresql"` to match `docker-compose.yml` Postgres service.
+- Removed `backend/prisma/dev.db` (SQLite dev DB) from the repository and added it to `.gitignore`.
+- Added `backend/README.md` with quick Docker/Prisma tips.
+- Created `.gitignore` to avoid committing `node_modules`, `.env`, `dev.db`, and other local files.
+
+These changes make the repo consistent with the included Docker Compose setup.
+
+---
+
+## Development notes & recommendations
+
+- Secrets: Do not commit `.env` files. Use environment variables or secret managers in production.
+- CI: Add a CI workflow (GitHub Actions) to run tests, lint, and build on PRs.
+- Formatting: Add ESLint + Prettier to both frontend and backend. I can scaffold configs if you want.
+- Remove large build artifacts from history if necessary (we removed `dev.db` from index only). If you need help removing large files from history, I can run `git filter-repo` instructions.
+
+---
+
+## Contributing
+
+1. Fork the repo
+2. Create a feature branch: `git checkout -b feat/some-feature`
+3. Make your changes and add tests
+4. Open a PR and request a review
+
+---
+
+## Next steps I can do for you (optional)
+
+- Add ESLint + Prettier configs and add lint/format scripts to `package.json`.
+- Small UI polish on the front-end (improve Navbar, add container and consistent spacing, improve JobCard visuals).
+- Add GitHub Actions CI that runs `npm ci`, `npm run build` for both frontend/backend, and runs basic lint checks.
+- Remove any other large files from history (if you have sensitive data accidentally committed).
+
+If you want me to continue: tell me which of the above you'd like next (ESLint & Prettier, UI polish, CI, or history rewrite) and I'll proceed.
 # Freelancer Marketplace
 
 Monorepo for a Freelancer Marketplace (frontend + backend + infra).
